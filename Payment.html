@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Razorpay Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </head>
+  <body>
+    <h3>Processing payment...</h3>
+    <script>
+      var options = {
+        key: "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay Key ID
+        amount: "50000", // in paise = INR 500
+        currency: "INR",
+        name: "Smart Route",
+        description: "Ride payment",
+        image: "https://yourdomain.com/logo.png",
+        handler: function (response) {
+          window.ReactNativeWebView.postMessage(
+            JSON.stringify({ success: true, payment_id: response.razorpay_payment_id })
+          );
+        },
+        prefill: {
+          name: "Qussai",
+          email: "qus@example.com",
+          contact: "9876543210"
+        },
+        theme: {
+          color: "#007AFF"
+        }
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    </script>
+  </body>
+</html>
