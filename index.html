@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Razorpay Payment</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <h2>Processing Payment...</h2>
+  <script>
+    const query = new URLSearchParams(window.location.search);
+    const amount = parseInt(query.get('amount')) || 100;
+    const name = query.get('name') || 'Guest';
+
+    const options = {
+      key: 'rzp_test_J7ezJghHosEVmc',
+      amount: amount * 100, // amount in paise
+      currency: 'INR',
+      name: name,
+      description: 'Test Transaction',
+      handler: function (response) {
+        alert('Payment Successful: ' + response.razorpay_payment_id);
+      },
+      prefill: {
+        name: name,
+        email: 'test@example.com',
+      },
+      theme: {
+        color: '#3399cc'
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+  </script>
+</body>
+</html>
